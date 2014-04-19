@@ -1,0 +1,42 @@
+#!/usr/bin/env perl
+
+BEGIN {
+    use FindBin;
+    use lib $FindBin::Bin . '/../lib';
+}
+
+use strict;
+use warnings;
+use feature 'say';
+
+use Machine::State::Simple -dsl;
+
+topic  "my test";
+
+at_state "goto";
+
+in_state "goto" => (
+    next => "moving",
+    when => {
+        "moving" => "went_forward"
+    }
+);
+
+in_state "went_forward";
+
+sub _during_moving {
+    warn "OOOMFG!!!";
+}
+
+my $main = main->new;
+
+while ($main->next) {
+    if ($main->status eq 'went_forward') {
+        # background the processing
+        # ...
+    }
+    else {
+        # move into the next state
+        $main->apply;
+    }
+}

@@ -1,0 +1,30 @@
+---
+abstract: 'State::Machine Implementation Ã  la Moose'
+author:
+  - 'Al Newkirk <anewkirk@ana.io>'
+build_requires:
+  perl: v5.14.2
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.132830'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Machine-State
+requires:
+  Bubblegum: 0.27
+  Class::Forward: 0
+  Class::Load: 0
+  Devel::StackTrace: 0
+  Exporter::Tiny: 0
+  Function::Parameters: 0
+  Moose: 0
+  perl: v5.14.2
+resources:
+  bugtracker: https://github.com/alnewkirk/Machine-State/issues
+  homepage: https://github.com/alnewkirk/Machine-State
+  repository: git://github.com/alnewkirk/Machine-State.git
+version: 0.01
+x_authority: cpan:AWNCORP
