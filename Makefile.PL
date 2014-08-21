@@ -28,7 +28,7 @@ my %WriteMakefileArgs = (
     "Throwable" => "0.200011"
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.02",
+  "VERSION" => "0.03",
   "test" => {
     "TESTS" => "t/state/*.t t/state/machine/*.t"
   }

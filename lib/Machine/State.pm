@@ -9,7 +9,7 @@ use Machine::State::Failure::Transition::Unknown;
 use Moose;
 use Try::Tiny;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 has 'state' => (
     is       => 'rw',
@@ -26,6 +26,13 @@ has 'topic' => (
 method apply {
     my $state = $self->state;
     my $next  = shift // $state->next;
+
+    if ($state && !$next) {
+        # deduce transition unless defined
+        if ($state->transitions->keys->count == 1) {
+            $next = $state->transitions->keys->get(0);
+        }
+    }
 
     # cannot transition
     Machine::State::Failure::Transition::Missing->throw
@@ -77,7 +84,7 @@ Machine::State - State::Machine Implementation à la Moose
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,12 @@
 Changelog for Machine-State
 
-0.02 2014-08-21T08:28:37
+0.03 2014-08-21T12:35:35
+ - Updated POD, Makefile, README, etc.
+ - Fixed issue importing DSL from Machine::State::Simple, Added transition
+   deducing functionality.
+
+0.02 2014-08-21T08:28:42
+ - v0.02
  - Updated POD, Makefile, README, etc.
  - Refactored to use the new Bubblegum, Miscellaneous updates.
 
