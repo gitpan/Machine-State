@@ -25,7 +25,8 @@ in_state "goto" => (
 in_state "went_forward";
 
 sub _during_moving {
-    warn "OOOMFG!!!";
+    my ($trans, $state, @args) = @_;
+    warn "OOOMFG!!! " . "I'm currently " . $state->name;
 }
 
 my $main = main->new;

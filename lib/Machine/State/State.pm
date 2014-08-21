@@ -3,14 +3,12 @@ package Machine::State::State;
 
 use Bubblegum;
 use Function::Parameters;
-use Machine::State::Failure;
+use Machine::State::Failure::Transition::Unknown;
 use Machine::State::Transition;
 use Moose;
 use Try::Tiny;
 
-use Bubblegum::Constraints -minimal;
-
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'name' => (
     is       => 'ro',
@@ -31,7 +29,7 @@ has 'transitions' => (
 );
 
 method add_transition {
-    my $trans = _object pop;
+    my $trans = pop;
     my $name  = shift;
 
     if ($trans->isa('Machine::State::Transition')) {
@@ -41,23 +39,21 @@ method add_transition {
     }
 
     # transition not found
-    Machine::State::Failure->raise(
-        class   => 'transition/unknown',
-        message => 'Transition is unknown.',
+    Machine::State::Failure::Transition::Unknown->throw(
+        transition_name => $name,
     );
 }
 
 method remove_transition {
-    my $name = _string shift;
+    my $name = shift;
 
-    if ($self->transitions->get($name)) {
+    if ($self->transitions->get($name->asa_string)) {
         return $self->transitions->delete($name);
     }
 
     # transition not found
-    Machine::State::Failure->raise(
-        class   => 'transition/unknown',
-        message => 'Transition is unknown.',
+    Machine::State::Failure::Transition::Unknown->throw(
+        transition_name => $name,
     );
 }
 
@@ -75,7 +71,7 @@ Machine::State::State - State Machine State Class
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 

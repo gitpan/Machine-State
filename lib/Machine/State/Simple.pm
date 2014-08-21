@@ -3,15 +3,13 @@ package Machine::State::Simple;
 
 use Bubblegum;
 use Machine::State;
-use Machine::State::Failure;
+use Machine::State::Failure::Simple;
 use Machine::State::State;
 use Machine::State::Transition;
 
-use Bubblegum::Constraints 'isa_hashref';
-
 use parent 'Exporter::Tiny';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our %CONFIGS;
 our @EXPORT_OK   = qw(at_state in_state topic);
@@ -23,7 +21,7 @@ sub BEGIN {
     my $target = caller;
     push @{"${target}::ISA"}, 'Machine::State';
     my $constructor = $target->can('new');
-    *{"${target}::new"} = sub {$constructor->(BUILDMACHINE(@_))};
+    *{"${target}::new"} = sub { $constructor->(BUILDMACHINE(@_)) };
 }
 
 sub topic {
@@ -46,7 +44,8 @@ sub in_state {
 
 sub BUILDMACHINE {
     my ($class, @args) = @_;
-    my $args   = isa_hashref $args[0] ? $args[0] : {@args};
+
+    my $args   = $args[0]->isa_hashref ? $args[0] : {@args};
     my $config = $CONFIGS{$class};
 
     my $init  = $config->get('at_state')->get(0)->first;
@@ -74,9 +73,8 @@ sub BUILDMACHINE {
 
         while (my($key, $val) = each %{$args{when}}) {
             my $result = $register{$val}
-                or Machine::State::Failure->raise(
+                or Machine::State::Failure::Simple->throw(
                     config  => $node,
-                    class   => 'simple',
                     message => sprintf
                         "Transition ($key) cannot result in the state ".
                         "($val); The state was not defined.",
@@ -124,7 +122,7 @@ Machine::State::Simple - Simple State Machine DSL
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -139,12 +137,19 @@ version 0.01
     in_state 'is_off' => ( when => { turn_on => 'is_on' } );
     at_state 'is_on'  => ( when => { turn_off => 'is_off' } );
 
-    sub _during_turn_on {
-        # do something; maybe start the radio
+    sub _before_turn_on {
+        my ($trans, $state, @args) = @_;
+        # do something; maybe plug it in
     }
 
-    sub _after_turn_off {
-        # undo something; maybe stop the radio if playing
+    sub _during_turn_on {
+        my ($trans, $state, @args) = @_;
+        # do something; maybe turn the knob or pull the lever
+    }
+
+    sub _after_turn_on {
+        my ($trans, $state, @args) = @_;
+        # do something else; maybe change adjust the positioning
     }
 
     package main;

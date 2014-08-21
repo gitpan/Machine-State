@@ -21,16 +21,14 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Machine::State",
   "PREREQ_PM" => {
-    "Bubblegum" => "0.27",
-    "Class::Forward" => 0,
-    "Class::Load" => 0,
-    "Devel::StackTrace" => 0,
-    "Exporter::Tiny" => 0,
-    "Function::Parameters" => 0,
-    "Moose" => 0
+    "Bubblegum" => "0.31",
+    "Exporter::Tiny" => "0.038",
+    "Function::Parameters" => "1.0401",
+    "Moose" => "2.1211",
+    "Throwable" => "0.200011"
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.01",
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/state/*.t t/state/machine/*.t"
   }
@@ -38,13 +36,11 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Bubblegum" => "0.27",
-  "Class::Forward" => 0,
-  "Class::Load" => 0,
-  "Devel::StackTrace" => 0,
-  "Exporter::Tiny" => 0,
-  "Function::Parameters" => 0,
-  "Moose" => 0
+  "Bubblegum" => "0.31",
+  "Exporter::Tiny" => "0.038",
+  "Function::Parameters" => "1.0401",
+  "Moose" => "2.1211",
+  "Throwable" => "0.200011"
 );
 
 

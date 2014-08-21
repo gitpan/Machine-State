@@ -3,13 +3,13 @@ package Machine::State;
 
 use Bubblegum;
 use Function::Parameters;
-use Machine::State::Failure;
+use Machine::State::Failure::Transition::Execution;
+use Machine::State::Failure::Transition::Missing;
+use Machine::State::Failure::Transition::Unknown;
 use Moose;
 use Try::Tiny;
 
-use Bubblegum::Constraints -minimal;
-
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'state' => (
     is       => 'rw',
@@ -24,37 +24,31 @@ has 'topic' => (
 );
 
 method apply {
-    my $state = _object $self->state;
+    my $state = $self->state;
     my $next  = shift // $state->next;
 
-    # cannot transition into unknown state
-    unless (isa_string $next) {
-        Machine::State::Failure->raise(
-            class   => 'transition/unknown',
-            message => 'Transition is unknown.',
-        );
-    }
+    # cannot transition
+    Machine::State::Failure::Transition::Missing->throw
+        unless $next->isa_string;
 
-    my $trans = $state->transitions->get($next);
-
-    if ($trans) {
+    # find transition
+    if (my $trans = $state->transitions->get($next)) {
         try {
-            $trans->execute(@_);
-            $self->state($trans->result);
-        } catch {
-            # transition failure
-            Machine::State::Failure->raise(
-                class      => 'transition/execution',
-                message    => 'Transition execution failure.',
-                transition => $trans,
-                explain    => $_,
+            # attempt transition
+            $self->state($trans->execute($state, @_));
+        }
+        catch {
+            # transition execution failure
+            Machine::State::Failure::Transition::Execution->throw(
+                transition_name   => $next,
+                transition_object => $trans,
             );
         }
-    } else {
-        # transition not found
-        Machine::State::Failure->raise(
-            class   => 'transition/unknown',
-            message => 'Transition is unknown.',
+    }
+    else {
+        # transition unknown
+        Machine::State::Failure::Transition::Unknown->throw(
+            transition_name => $next
         );
     }
 
@@ -83,7 +77,7 @@ Machine::State - State::Machine Implementation à la Moose
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -113,8 +107,8 @@ version 0.01
         state => $is_off
     );
 
-    $lightswitch->apply('turn_off');
-    $lightswitch->status; # is_off
+    $lightswitch->apply('turn_on');
+    $lightswitch->status; # is_on
 
 =head1 DESCRIPTION
 

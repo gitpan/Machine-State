@@ -4,7 +4,11 @@ Machine::State - State::Machine Implementation à la Moose
 
 # VERSION
 
-version 0.01
+version 0.02
+
+# STATUS
+
+<a href="https://travis-ci.org/alnewkirk/Machine-State"><img src="https://travis-ci.org/alnewkirk/Machine-State.svg?branch=master"></a>
 
 # SYNOPSIS
 
@@ -34,8 +38,8 @@ version 0.01
         state => $is_off
     );
 
-    $lightswitch->apply('turn_off');
-    $lightswitch->status; # is_off
+    $lightswitch->apply('turn_on');
+    $lightswitch->status; # is_on
 
 # DESCRIPTION
 

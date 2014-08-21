@@ -9,12 +9,14 @@ README
 README.mkdn
 cpanfile
 dev/machine
+dev/tester
 lib/Machine/State.pm
 lib/Machine/State/Failure.pm
 lib/Machine/State/Failure/Simple.pm
 lib/Machine/State/Failure/Transition.pm
 lib/Machine/State/Failure/Transition/Execution.pm
 lib/Machine/State/Failure/Transition/Hook.pm
+lib/Machine/State/Failure/Transition/Missing.pm
 lib/Machine/State/Failure/Transition/Unknown.pm
 lib/Machine/State/Simple.pm
 lib/Machine/State/State.pm

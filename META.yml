@@ -14,17 +14,15 @@ meta-spec:
   version: 1.4
 name: Machine-State
 requires:
-  Bubblegum: 0.27
-  Class::Forward: 0
-  Class::Load: 0
-  Devel::StackTrace: 0
-  Exporter::Tiny: 0
-  Function::Parameters: 0
-  Moose: 0
+  Bubblegum: 0.31
+  Exporter::Tiny: 0.038
+  Function::Parameters: 1.0401
+  Moose: 2.1211
+  Throwable: 0.200011
   perl: v5.14.2
 resources:
   bugtracker: https://github.com/alnewkirk/Machine-State/issues
-  homepage: https://github.com/alnewkirk/Machine-State
+  homepage: http://metacpan.org/release/Machine-State/
   repository: git://github.com/alnewkirk/Machine-State.git
-version: 0.01
+version: 0.02
 x_authority: cpan:AWNCORP

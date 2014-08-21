@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+
+BEGIN {
+    use FindBin;
+    use lib $FindBin::Bin . '/lib';
+}
+
+use strict;
+use warnings;
+use feature 'say';
+
+use Machine::State;
+use Machine::State::State;
+use Machine::State::Transition;
+use Machine::State::Failure::Transition;
+
+#require Data::Dumper and die Data::Dumper::Dumper(Machine::State::Transition->new(name => 'foobar', result => Machine::State::State->new(name => 'baz')));
+#Machine::State::Failure::Transition->throw(transition => Machine::State::Transition->new(name => 'foobar', result => Machine::State::State->new(name => 'baz')))
+my $state = Machine::State::State->new(name => 'baz');
+my $machine = Machine::State->new(state => $state, topic => 'testing');
+my $trans = Machine::State::Transition->new(name => 'foobar', result => Machine::State::State->new(name => 'baz'));
+$trans->hook(zuring => sub {1});
+$state->add_transition($trans);
+
+require Data::Dumper and die Data::Dumper::Dumper($machine->apply('foobar'));

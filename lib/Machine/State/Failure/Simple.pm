@@ -7,7 +7,7 @@ use Moose;
 
 extends 'Machine::State::Failure';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has config => (
     is       => 'ro',

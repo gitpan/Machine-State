@@ -3,14 +3,12 @@ package Machine::State::Transition;
 
 use Bubblegum;
 use Function::Parameters;
-use Machine::State::Failure;
+use Machine::State::Failure::Transition::Hook;
 use Machine::State::State;
 use Moose;
 use Try::Tiny;
 
-use Bubblegum::Constraints -minimal;
-
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'name' => (
     is       => 'ro',
@@ -36,12 +34,6 @@ has 'executable' => (
     default => 1
 );
 
-has 'terminated' => (
-    is      => 'rw',
-    isa     => 'Int',
-    default => 0
-);
-
 method execute {
     return if !$self->executable;
 
@@ -51,11 +43,10 @@ method execute {
         $self->hooks->get('after'),
     );
 
-    $self->terminated(0);
     for my $schedule (@schedules) {
-        if (isa_arrayref $schedule) {
+        if ($schedule->isa_arrayref) {
             for my $task ($schedule->list) {
-                next if $self->terminated or !$task->typeof('code');
+                next if !$task->isa_coderef;
                 $task->call($self, @_);
             }
         }
@@ -65,17 +56,20 @@ method execute {
 }
 
 method hook {
-    my $name = _string shift;
-    my $code = _coderef shift;
+    my $name = shift;
+    my $code = shift;
+
+    $name->asa_string;
+    $code->asa_coderef;
+
     my $list = $self->hooks->get($name);
 
-    unless ($list->typeof('array')) {
-        # transition add-hook failure
-        Machine::State::Failure->raise(
-            class      => 'transition/hook',
-            message    => "Unrecognized hook ($name) in transition.",
-            transition => $self,
-            hook       => $name,
+    unless ($list->isa_arrayref) {
+        # transition hooking failure
+        Machine::State::Failure::Transition::Hook->throw(
+            hook_name         => $name,
+            transition_name   => $self->name,
+            transition_object => $self,
         );
     }
 
@@ -97,7 +91,7 @@ Machine::State::Transition - State Machine State Transition Class
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -109,6 +103,7 @@ version 0.01
     );
 
     $trans->hook(during => sub {
+        my ($trans, $state, @args) = @_;
         # do something during resume
     });
 
@@ -148,15 +143,6 @@ The name of the transition. The value can be any scalar value.
 
 The result represents the resulting state of a transition. The value must be a
 L<Machine::State::State> object.
-
-=head2 terminated
-
-    my $terminated = $trans->terminated;
-    $trans->terminated(1);
-
-The terminated flag determines whether a transition in-execution should
-continue (i.e. processing hooks). This flag is reset on each execution an is
-meant to be called from within a hook.
 
 =head1 METHODS
 

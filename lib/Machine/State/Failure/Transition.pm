@@ -3,17 +3,22 @@ package Machine::State::Failure::Transition;
 
 use Bubblegum;
 use Function::Parameters;
-use Machine::State::Transition;
 use Moose;
 
 extends 'Machine::State::Failure';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
-has transition => (
+has transition_name => (
+    is       => 'ro',
+    isa      => 'Str',
+    required => 0
+);
+
+has transition_object => (
     is       => 'ro',
     isa      => 'Machine::State::Transition',
-    required => 1
+    required => 0
 );
 
 1;

@@ -2,7 +2,7 @@ NAME
     Machine::State - State::Machine Implementation à la Moose
 
 VERSION
-    version 0.01
+    version 0.02
 
 SYNOPSIS
         use Machine::State;
@@ -31,8 +31,8 @@ SYNOPSIS
             state => $is_off
         );
 
-        $lightswitch->apply('turn_off');
-        $lightswitch->status; # is_off
+        $lightswitch->apply('turn_on');
+        $lightswitch->status; # is_on
 
 DESCRIPTION
     A finite-state machine (FSM) or finite-state automaton (plural:

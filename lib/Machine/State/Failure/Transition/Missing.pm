@@ -1,5 +1,5 @@
-# Machine::State::Transition Execution Failure Class
-package Machine::State::Failure::Transition::Execution;
+# Machine::State::Transition Missing Failure Class
+package Machine::State::Failure::Transition::Missing;
 
 use Bubblegum;
 use Function::Parameters;
@@ -10,7 +10,7 @@ extends 'Machine::State::Failure::Transition';
 our $VERSION = '0.02'; # VERSION
 
 method _build_message {
-    "Transition execution failure."
+    "Transition missing."
 }
 
 1;

@@ -1,6 +1,11 @@
 Changelog for Machine-State
 
-0.01 2014-04-19T12:34:19
+0.02 2014-08-21T08:28:37
+ - Updated POD, Makefile, README, etc.
+ - Refactored to use the new Bubblegum, Miscellaneous updates.
+
+0.01 2014-04-19T12:34:33
+ - v0.01
  - Added POD, Makefile, README, etc.
  - Initial commit.
 

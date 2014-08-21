@@ -5,8 +5,12 @@ use Bubblegum;
 use Function::Parameters;
 use Moose;
 
-extends 'Machine::State::Failure';
+extends 'Machine::State::Failure::Transition';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
+
+method _build_message {
+    "Transition unknown."
+}
 
 1;
