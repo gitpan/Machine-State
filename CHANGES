@@ -1,6 +1,11 @@
 Changelog for Machine-State
 
-0.03 2014-08-21T12:35:35
+0.04 2014-08-21T19:03:39
+ - Updated POD, Makefile, README, etc.
+ - Optimized next-transition deducing functionality.
+
+0.03 2014-08-21T12:35:40
+ - v0.03
  - Updated POD, Makefile, README, etc.
  - Fixed issue importing DSL from Machine::State::Simple, Added transition
    deducing functionality.

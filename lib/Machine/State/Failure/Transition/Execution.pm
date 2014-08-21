@@ -7,7 +7,13 @@ use Moose;
 
 extends 'Machine::State::Failure::Transition';
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
+
+has 'captured' => (
+    is       => 'ro',
+    isa      => 'Defined',
+    required => 1
+);
 
 method _build_message {
     "Transition execution failure."

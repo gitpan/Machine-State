@@ -9,7 +9,7 @@ use Machine::State::Failure::Transition::Unknown;
 use Moose;
 use Try::Tiny;
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 has 'state' => (
     is       => 'rw',
@@ -25,17 +25,10 @@ has 'topic' => (
 
 method apply {
     my $state = $self->state;
-    my $next  = shift // $state->next;
-
-    if ($state && !$next) {
-        # deduce transition unless defined
-        if ($state->transitions->keys->count == 1) {
-            $next = $state->transitions->keys->get(0);
-        }
-    }
+    my $next  = $self->next;
 
     # cannot transition
-    Machine::State::Failure::Transition::Missing->throw
+    State::Machine::Failure::Transition::Missing->throw
         unless $next->isa_string;
 
     # find transition
@@ -46,7 +39,8 @@ method apply {
         }
         catch {
             # transition execution failure
-            Machine::State::Failure::Transition::Execution->throw(
+            State::Machine::Failure::Transition::Execution->throw(
+                captured          => $_,
                 transition_name   => $next,
                 transition_object => $trans,
             );
@@ -54,7 +48,7 @@ method apply {
     }
     else {
         # transition unknown
-        Machine::State::Failure::Transition::Unknown->throw(
+        State::Machine::Failure::Transition::Unknown->throw(
             transition_name => $next
         );
     }
@@ -63,7 +57,17 @@ method apply {
 };
 
 method next {
-    return $self->state->next;
+    my $state = $self->state;
+    my $next  = shift // $state->next;
+
+    if ($state && !$next) {
+        # deduce transition unless defined
+        if ($state->transitions->keys->count == 1) {
+            $next = $state->transitions->keys->get(0);
+        }
+    }
+
+    return $next;
 }
 
 method status {
@@ -84,7 +88,7 @@ Machine::State - State::Machine Implementation à la Moose
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

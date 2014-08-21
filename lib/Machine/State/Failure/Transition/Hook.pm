@@ -7,7 +7,7 @@ use Moose;
 
 extends 'Machine::State::Failure::Transition';
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 has hook_name => (
     is       => 'ro',
