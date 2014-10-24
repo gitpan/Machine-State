@@ -8,7 +8,7 @@ use Machine::State::Transition;
 use Moose;
 use Try::Tiny;
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 has 'name' => (
     is       => 'ro',
@@ -71,7 +71,7 @@ Machine::State::State - State Machine State Class
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -127,8 +127,6 @@ collection. The method requires a L<Machine::State::Transition> object.
 
 The remove_transition method removes a pre-defined transition from the
 transitions collection. The method requires a transition name.
-
-=encoding utf8
 
 =head1 AUTHOR
 

@@ -8,7 +8,7 @@ use Machine::State::State;
 use Moose;
 use Try::Tiny;
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 has 'name' => (
     is       => 'ro',
@@ -91,7 +91,7 @@ Machine::State::Transition - State Machine State Transition Class
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -155,8 +155,6 @@ L<Machine::State::State> object.
 The hook method registers a new hook in the append-only hooks collection to be
 fired when the transition is executed. The method requires an event name,
 either C<before>, C<during>, or C<after>, and a code reference.
-
-=encoding utf8
 
 =head1 AUTHOR
 

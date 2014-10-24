@@ -9,7 +9,7 @@ use Machine::State::Transition;
 
 use parent 'Exporter::Tiny';
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 our %CONFIGS;
 our @EXPORT_OK   = qw(at_state in_state topic);
@@ -126,7 +126,7 @@ Machine::State::Simple - Simple State Machine DSL
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -276,8 +276,6 @@ transitions, and whose values are names of states.
 
 The topic function takes an arbitrary string which describes the purpose or
 intent of the state machine.
-
-=encoding utf8
 
 =head1 AUTHOR
 

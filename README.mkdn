@@ -1,10 +1,10 @@
 # NAME
 
-Machine::State - State::Machine Implementation à la Moose
+Machine::State - State::Machine Implementation Ã  la Moose
 
 # VERSION
 
-version 0.04
+version 0.05
 
 # STATUS
 
@@ -50,7 +50,7 @@ one state to another when initiated by a triggering event or condition; this is
 called a transition. Machine::State is a system for creating state machines and
 managing their transitions; It is also a great mechanism for enforcing and
 tracking workflow, especially in distributed computing. This library is a
-Moose-based implementation of the [State::Machine](http://search.cpan.org/perldoc?State::Machine) library.
+Moose-based implementation of the [Machine::State](http://search.cpan.org/perldoc?Machine::State) library.
 
 State machines are useful for modeling systems with perform a predetermined
 sequence of event and result in deterministic state. Machine::State, as you
@@ -105,6 +105,10 @@ The status method returns the name of the current state.
 # AUTHOR
 
 Al Newkirk <anewkirk@ana.io>
+
+# CONTRIBUTOR
+
+Сергей Романов <sromanov-dev@yandex.ru>
 
 # COPYRIGHT AND LICENSE
 

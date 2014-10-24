@@ -7,7 +7,7 @@ use Moose;
 
 extends 'Machine::State::Failure::Transition';
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 method _build_message {
     "Transition missing."

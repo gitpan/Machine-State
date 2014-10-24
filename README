@@ -1,8 +1,8 @@
 NAME
-    Machine::State - State::Machine Implementation à la Moose
+    Machine::State - State::Machine Implementation Ã la Moose
 
 VERSION
-    version 0.04
+    version 0.05
 
 SYNOPSIS
         use Machine::State;
@@ -43,7 +43,7 @@ DESCRIPTION
     Machine::State is a system for creating state machines and managing
     their transitions; It is also a great mechanism for enforcing and
     tracking workflow, especially in distributed computing. This library is
-    a Moose-based implementation of the State::Machine library.
+    a Moose-based implementation of the Machine::State library.
 
     State machines are useful for modeling systems with perform a
     predetermined sequence of event and result in deterministic state.
@@ -92,6 +92,9 @@ METHODS
 
 AUTHOR
     Al Newkirk <anewkirk@ana.io>
+
+CONTRIBUTOR
+    Ð¡ÐµÑÐ³ÐµÐ¹ Ð Ð¾Ð¼Ð°Ð½Ð¾Ð² <sromanov-dev@yandex.ru>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2014 by Al Newkirk.

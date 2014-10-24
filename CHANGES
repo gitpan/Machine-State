@@ -1,6 +1,12 @@
 Changelog for Machine-State
 
-0.04 2014-08-21T19:03:39
+0.05 2014-10-24T04:15:23
+ - Updated POD, Makefile, README, etc.
+ - Fixed typo where exceptions were specified.
+ - Changed PWP::Encoding to PWP::SingleEncoding.
+
+0.04 2014-08-21T19:03:50
+ - v0.04
  - Updated POD, Makefile, README, etc.
  - Optimized next-transition deducing functionality.
 

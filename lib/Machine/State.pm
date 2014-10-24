@@ -9,7 +9,7 @@ use Machine::State::Failure::Transition::Unknown;
 use Moose;
 use Try::Tiny;
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 has 'state' => (
     is       => 'rw',
@@ -28,7 +28,7 @@ method apply {
     my $next  = $self->next;
 
     # cannot transition
-    State::Machine::Failure::Transition::Missing->throw
+    Machine::State::Failure::Transition::Missing->throw
         unless $next->isa_string;
 
     # find transition
@@ -39,7 +39,7 @@ method apply {
         }
         catch {
             # transition execution failure
-            State::Machine::Failure::Transition::Execution->throw(
+            Machine::State::Failure::Transition::Execution->throw(
                 captured          => $_,
                 transition_name   => $next,
                 transition_object => $trans,
@@ -48,7 +48,7 @@ method apply {
     }
     else {
         # transition unknown
-        State::Machine::Failure::Transition::Unknown->throw(
+        Machine::State::Failure::Transition::Unknown->throw(
             transition_name => $next
         );
     }
@@ -84,11 +84,11 @@ __END__
 
 =head1 NAME
 
-Machine::State - State::Machine Implementation à la Moose
+Machine::State - State::Machine Implementation Ã  la Moose
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -130,7 +130,7 @@ one state to another when initiated by a triggering event or condition; this is
 called a transition. Machine::State is a system for creating state machines and
 managing their transitions; It is also a great mechanism for enforcing and
 tracking workflow, especially in distributed computing. This library is a
-Moose-based implementation of the L<State::Machine> library.
+Moose-based implementation of the L<Machine::State> library.
 
 State machines are useful for modeling systems with perform a predetermined
 sequence of event and result in deterministic state. Machine::State, as you
@@ -182,11 +182,15 @@ state if exists, otherwise it will return undefined.
 
 The status method returns the name of the current state.
 
-=encoding utf8
-
 =head1 AUTHOR
 
 Al Newkirk <anewkirk@ana.io>
+
+=head1 CONTRIBUTOR
+
+=for stopwords Сергей Романов
+
+Сергей Романов <sromanov-dev@yandex.ru>
 
 =head1 COPYRIGHT AND LICENSE
 
